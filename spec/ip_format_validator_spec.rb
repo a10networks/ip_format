@@ -4,7 +4,7 @@ describe IpFormatValidator do
 
   let(:fake_model) { FakeModel.new }
 
-  context "with valid macs" do
+  context "with valid ips" do
 
     let(:valid_ips) { %w(192.68.1.1 fde4:8dba:82e1::) }
 
