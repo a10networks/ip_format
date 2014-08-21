@@ -71,6 +71,8 @@ There are two other validators, `ipv4_format` and `ipv6_format`. They can be cal
 
 #### IPV6 Format
 
+The below example validates against the IPV6 format regex defined by the `Resolv` gem.
+
 ```ruby
 require 'ip_format'
 
@@ -90,6 +92,8 @@ awesome.valid? # => false
 ```
 
 #### IPV4 Format
+
+The below example validates against the IPV4 format regex defined by the `Resolv` gem.
 
 ```ruby
 require 'ip_format'
