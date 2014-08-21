@@ -4,21 +4,66 @@ describe IpFormatValidator do
 
   let(:fake_model) { FakeModel.new }
 
+  let(:ipv4_ips)    { %w(192.68.1.1 255.255.255.0 172.68.0.1)           }
+  let(:ipv6_ips)    { %w(fde4:8dba:82e1::)                              }
+  let(:invalid_ips) { %w(1231231231231231 1922.68.1.1 fde4:8dba:82z1::) }
+
   context "with valid ips" do
 
-    let(:valid_ips) { %w(192.68.1.1 fde4:8dba:82e1::) }
+    it "should be accept ipv6 ips" do
+      ipv6_ips.each do |ip|
+        fake_model.ip = ip
+        expect(fake_model.valid?).to be_truthy
+      end
+    end
 
-    it "should be happy" do
-      valid_ips.each do |ip|
+    it "should accept ipv4 ips" do
+      ipv4_ips.each do |ip|
         fake_model.ip = ip
         expect(fake_model.valid?).to be_truthy
       end
     end
   end
 
-  context "with invalid ips" do
+  context "with only_ipv6: true" do
 
-    let(:invalid_ips) { %w(1231231231231231 1922.68.1.1 fde4:8dba:82z1::) }
+    let(:fake_model) { FakeModelWithOnlyIpv6.new }
+
+    it "should accept ipv6 ips" do
+      ipv6_ips.each do |ip|
+        fake_model.ip = ip
+        expect(fake_model.valid?).to be_truthy
+      end
+    end
+
+    it "should not accept ipv4 ips" do
+      ipv4_ips.each do |ip|
+        fake_model.ip = ip
+        expect(fake_model.valid?).to be_falsey
+      end
+    end
+  end
+
+  context "with only_ipv4: true" do
+
+    let(:fake_model) { FakeModelWithOnlyIpv4.new }
+
+    it "should accept ipv4 ips" do
+      ipv4_ips.each do |ip|
+        fake_model.ip = ip
+        expect(fake_model.valid?).to be_truthy
+      end
+    end
+
+    it "should not accept ipv6 ips" do
+      ipv6_ips.each do |ip|
+        fake_model.ip = ip
+        expect(fake_model.valid?).to be_falsey
+      end
+    end
+  end
+
+  context "with invalid ips" do
 
     it "shouldn't be happy" do
       invalid_ips.each do |ip|

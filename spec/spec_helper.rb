@@ -12,6 +12,22 @@ class FakeModel
   validates :ip, ip_format: true
 end
 
+class FakeModelWithOnlyIpv6
+  include ActiveModel::Validations
+
+  attr_accessor :ip
+
+  validates :ip, ipv6_format: true
+end
+
+class FakeModelWithOnlyIpv4
+  include ActiveModel::Validations
+
+  attr_accessor :ip
+
+  validates :ip, ipv4_format: true
+end
+
 class FakeModelWithBlankIp
   include ActiveModel::Validations
 
