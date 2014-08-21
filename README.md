@@ -71,7 +71,7 @@ There are two other validators, `ipv4_format` and `ipv6_format`. They can be cal
 
 #### IPV6 Format
 
-The below example validates against the IPV6 format regex defined by the `Resolv` gem.
+The below example validates against the IPV6 format regex defined by the Resolv gem.
 
 ```ruby
 require 'ip_format'
@@ -93,7 +93,7 @@ awesome.valid? # => false
 
 #### IPV4 Format
 
-The below example validates against the IPV4 format regex defined by the `Resolv` gem.
+The below example validates against the IPV4 format regex defined by the Resolv gem.
 
 ```ruby
 require 'ip_format'
@@ -112,6 +112,12 @@ awesome.valid? # => false
 awesome.ip = "192.68.0.1"
 awesome.valid? # => true
 ```
+
+## Why?
+
+IP Format uses Resolv, which comes with the Ruby standard lib. This ensures that a new dependency isn't introduced, keeping away the bloat that is sometimes involved with adding gems that have a long line of dependencies.
+
+The [ipaddress](https://github.com/bluemonk/ipaddress) gem is a great option if you need a more robust solution with subnetting and prefix information. If that functionality isn't a requirement, then the IP Format gem is what you're looking for; it's as simple and lightweight as can be (assuming you're already using ActiveModel).
 
 ## Contributing
 

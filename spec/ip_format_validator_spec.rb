@@ -5,7 +5,7 @@ describe IpFormatValidator do
   let(:fake_model) { FakeModel.new }
 
   let(:ipv4_ips)    { %w(192.68.1.1 255.255.255.0 172.68.0.1)           }
-  let(:ipv6_ips)    { %w(fde4:8dba:82e1::)                              }
+  let(:ipv6_ips)    { %w(fde4:8dba:82e1:: 2001:db8::8:800:200c:417a)    }
   let(:invalid_ips) { %w(1231231231231231 1922.68.1.1 fde4:8dba:82z1::) }
 
   context "with valid ips" do
