@@ -65,6 +65,50 @@ awesome.ip = "invalidip"
 awesome.valid? # => false
 ```
 
+### Check format for only IPV4 or IPV6
+
+There are two other validators, `ipv4_format` and `ipv6_format`. They can be called in place of `ip_format` if you want the IP address to be validated specifically against IPV4 or IPV6.
+
+#### IPV6 Format
+
+```ruby
+require 'ip_format'
+
+class Awesome
+  include ActiveModel::Validations
+  attr_accessor :ip
+  validates :ip, ipv6_format: true
+end
+
+awesome = Awesome.new
+
+awesome.ip = "fde4:8dba:82e1::"
+awesome.valid? # => true
+
+awesome.ip = "192.68.0.1"
+awesome.valid? # => false
+```
+
+#### IPV4 Format
+
+```ruby
+require 'ip_format'
+
+class Awesome
+  include ActiveModel::Validations
+  attr_accessor :ip
+  validates :ip, ipv4_format: true
+end
+
+awesome = Awesome.new
+
+awesome.ip = "fde4:8dba:82e1::"
+awesome.valid? # => false
+
+awesome.ip = "192.68.0.1"
+awesome.valid? # => true
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/a10networks/ip_format/fork )
