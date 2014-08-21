@@ -65,6 +65,60 @@ awesome.ip = "invalidip"
 awesome.valid? # => false
 ```
 
+### Check format for only IPV4 or IPV6
+
+There are two other validators, `ipv4_format` and `ipv6_format`. They can be called in place of `ip_format` if you want the IP address to be validated specifically against IPV4 or IPV6.
+
+#### IPV6 Format
+
+The below example validates against the IPV6 format regex defined by the Resolv gem.
+
+```ruby
+require 'ip_format'
+
+class Awesome
+  include ActiveModel::Validations
+  attr_accessor :ip
+  validates :ip, ipv6_format: true
+end
+
+awesome = Awesome.new
+
+awesome.ip = "fde4:8dba:82e1::"
+awesome.valid? # => true
+
+awesome.ip = "192.68.0.1"
+awesome.valid? # => false
+```
+
+#### IPV4 Format
+
+The below example validates against the IPV4 format regex defined by the Resolv gem.
+
+```ruby
+require 'ip_format'
+
+class Awesome
+  include ActiveModel::Validations
+  attr_accessor :ip
+  validates :ip, ipv4_format: true
+end
+
+awesome = Awesome.new
+
+awesome.ip = "fde4:8dba:82e1::"
+awesome.valid? # => false
+
+awesome.ip = "192.68.0.1"
+awesome.valid? # => true
+```
+
+## Why?
+
+IP Format uses Resolv, which comes with the Ruby standard lib. This ensures that a new dependency isn't introduced, keeping away the bloat that is sometimes involved with adding gems that have a long line of dependencies.
+
+The [ipaddress](https://github.com/bluemonk/ipaddress) gem is a great option if you need a more robust solution with subnetting and prefix information. If that functionality isn't a requirement, then the IP Format gem is what you're looking for; it's as simple and lightweight as can be (assuming you're already using ActiveModel).
+
 ## Contributing
 
 1. Fork it ( https://github.com/a10networks/ip_format/fork )
